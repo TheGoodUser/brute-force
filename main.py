@@ -25,7 +25,7 @@ headers = {
 def send_login_request(*, email: str):
     # url = input("enter target IP address: ")
     
-    url = f"http://{url}:8080/login/"
+    # url = f"http://{url}:8080/login/"
     
     for password_buffer in passwords:
         password = password_buffer.strip()
