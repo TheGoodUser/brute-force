@@ -1,0 +1,18 @@
+# Virtual environment name
+bfv/
+
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+*.sqlite3
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.db
+*.egg-info/
+dist/
+build/
