@@ -45,3 +45,15 @@ def rich_log(email: str, password: str, ok: bool):
         padding=(1,2),
     )
     console.print(panel)
+    
+def forbidden_log(ip: str):
+    time = ts_ms()
+    panel = Panel(
+        f"[bold red]Forbidden: Your IP ({ip}) is blocked.[/bold red]",
+        title="[bold white on red]ACCESS DENIED[/bold white on red]",
+        subtitle=f"[dim]{time}[/dim]",
+        border_style="red",
+        box=box.HEAVY,
+        padding=(1,2),
+    )
+    console.print(panel)
