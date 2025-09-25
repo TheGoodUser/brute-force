@@ -38,7 +38,11 @@ def send_login_request(*, email: str):
             rich_log(email, password, ok=True)
             break
         elif response.status_code == 403:
-            forbidden_log(ip=dict(response.content).get("ip"))
+            try:
+                ip = response.json().get("ip")
+            except Exception:
+                ip = None
+            forbidden_log(ip=ip)
             break
         else:
             rich_log(email, password, ok=False)
