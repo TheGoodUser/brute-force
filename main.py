@@ -15,12 +15,16 @@ def save_pass_buffer():
 # ================== start the requests ========================= 
 # ===============================================================
 
-url = "http://127.0.0.1:8080/login/"
+# url = "http://127.0.0.1:8080/login/"
 headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
 }
 
 def send_login_request(*, email: str):
+    ip = input("enter IP address: ")
+    
+    url = f"http://{ip}:8080/login/"
+    
     for password_buffer in passwords:
         password = password_buffer.strip()
 
