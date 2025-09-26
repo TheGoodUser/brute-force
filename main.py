@@ -16,24 +16,21 @@ def save_pass_buffer():
 # ================== start the requests ========================= 
 # ===============================================================
 
-url = "http://192.168.29.42:8080/login/"
-headers = {
+# api endpoint
+URL = "https://bfds-backend.onrender.com/login/"
+
+HEADERS = {
   'Content-Type': 'application/x-www-form-urlencoded',
-  
 }
 
 def send_login_request(*, email: str):
-    # url = input("enter target IP address: ")
-    
-    # url = f"http://{url}:8080/login/"
-    
     for password_buffer in passwords:
         password = password_buffer.strip()
 
-        payload = f'email={email}&password={password}'
-        payload = payload.replace("@", "%40")
+        PAYLOAD = f'email={email}&password={password}'
+        PAYLOAD = PAYLOAD.replace("@", "%40")
 
-        response = requests.request("POST", url, headers=headers, data=payload)
+        response = requests.request("POST", URL, headers=HEADERS, data=PAYLOAD)
         if response.status_code == 200:
             rich_log(email, password, ok=True)
             break
